@@ -1,0 +1,122 @@
+/* Стили контайнера карточек */
+.cards {
+  display: grid;
+  justify-content: center;
+  padding: 75px 70px 10px;
+  grid-template-columns: repeat(auto-fill, min(270px));
+  grid-template-rows: 230px;
+  gap: 38px 20px;
+}
+
+.cards-next {
+  padding: 56px 70px 80px;
+  text-align: center;
+}
+
+.cards_block_hide {
+  display: none;
+}
+
+.cards-next_block_hide {
+  display: none;
+}
+
+.cards-next__btn-next {
+  width: 320px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: black;
+  background-color: rgba(248, 248, 248, 1);
+}
+
+.cards-next__btn-next:hover {
+  opacity: 70%;
+  cursor: pointer;
+}
+
+.cards-next__btn-next:active {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(47, 47, 47, 0.8);
+  box-shadow: 1px 1px 30px rgba(23, 23, 23, 1);
+}
+
+.cards-next__btn-next:focus {
+  outline: 1.5px solid rgb(23, 23, 23, 1);
+}
+
+.nothing-found {
+  display: flex;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 350px;
+  width: 100%;
+  max-height: 230px;
+  height: 100vh;
+  border-radius: 10px;
+  background: rgb(46, 46, 46);
+}
+
+.nothing-found__text_error {
+  color: rgba(238, 52, 101, 1);
+}
+
+.nothing-found__text_error:nth-child(2) {
+  margin: 10px 0;
+}
+
+.nothing-found_hide {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .cards {
+    padding: 90px 30px 10px;
+    grid-template-columns: repeat(2, 339px);
+    grid-template-rows: 269px;
+    gap: 30px 30px;
+  }
+
+  .cards-next {
+    padding: 50px 30px 80px;
+  }
+}
+
+@media (max-width: 740px) {
+  .cards {
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: repeat(2, 246px);
+    gap: 34px;
+  }
+
+  .cards-next {
+    padding: 50px 30px 80px;
+  }
+}
+
+@media (max-width: 440px) {
+  .cards-next__btn-next {
+    width: 240px;
+  }
+}
+
+@media (max-width: 320px) {
+  .cards {
+    padding: 50px 10px 10px;
+  }
+
+  .cards-next {
+    padding: 50px 10px 80px;
+  }
+
+  .cards-next__btn-next {
+    max-width: 70%;
+  }
+}
