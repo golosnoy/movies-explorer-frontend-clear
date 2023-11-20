@@ -3,6 +3,7 @@ class MoviesApi {
         this.baseUrl = baseUrl;
         this.headers = headers;
         this.cachedMovies = null;
+        this.localDataMovies = JSON.parse(localStorage.getItem("dataMovies"));
     }
 
 
@@ -14,6 +15,9 @@ class MoviesApi {
     }
 
     getMoviesList() {
+        if (this.localDataMovies.length > 0) {
+            return Promise.resolve(this.cachedMovies);
+        }
         if (this.cachedMovies) {
             return Promise.resolve(this.cachedMovies);
         }

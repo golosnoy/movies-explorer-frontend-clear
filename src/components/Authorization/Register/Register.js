@@ -41,6 +41,7 @@ function Register({ serverResWithError, handleRegister, ...props }) {
                 >
 
                     <form
+                        id="form"
                         onSubmit={handleSubmit}
                         className="register__form"
                         action="formEntrance"

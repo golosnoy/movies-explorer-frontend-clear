@@ -1,13 +1,11 @@
 import { userContex } from '../../../contexts/CurrentUserContext';
 
 import './Profile.css';
-import { React, useContext, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { React, useContext, useMemo, useState } from 'react';
 import { useFormWithValidation } from '../../Validate/Validate';
 import { pattern } from '../../../utils/constants';
 
-function Profile({ serverResWithError, handleNewUserData, onLoggedIn, ...props }) {
-    const navigate = useNavigate();
+function Profile({ serverResWithError, handleNewUserData, handleLogOut, ...props }) {
     const currentUser = useContext(userContex);
     const [waitingResponse, setWaitingResponse] = useState({
         message: '',
@@ -44,19 +42,12 @@ function Profile({ serverResWithError, handleNewUserData, onLoggedIn, ...props }
         }
     }
 
-    // После выхода отрабатывается функция
-    const outSite = () => {
-        localStorage.clear();
-        onLoggedIn(false);
-        navigate('/');
-    }
-
     return (
         <section className='profile'>
 
             <div className='profile__container'>
 
-                <form onSubmit={handleSubmit} className='profile__form'>
+                <form id="form" onSubmit={handleSubmit} className='profile__form'>
                     <div className='profile__form_container'>
                         <h2 className='profile__greeting'>{`${props.greeting}, ${currentUser.name}!`}</h2>
                         <div className='profile__form-list-inputs_container'>
@@ -91,7 +82,7 @@ function Profile({ serverResWithError, handleNewUserData, onLoggedIn, ...props }
                             ? 'profile__btn-form_disabled'
                             : ''}`}
                         >{props.btnEditText}</button>
-                        <button onClick={outSite} type='button' className='profile__btn profile__btn-exit'>{props.btnExitText}</button>
+                        <button onClick={handleLogOut} type='button' className='profile__btn profile__btn-exit'>{props.btnExitText}</button>
                     </div>
                 </form>
 

@@ -72,7 +72,7 @@ function App() {
     setPreloader(state);
   };
 
-  const hendlerMoviesLike = (movies, isLiked) => {
+  const hаndleMoviesLike = (movies, isLiked) => {
     if (!isLiked) {
       apiMain
         .deleteMovies(dataUserMovies.find((i) => i.movieId === movies.id)._id)
@@ -96,7 +96,7 @@ function App() {
     }
   };
 
-  function hendlerMoviesDelete(movies) {
+  function handleMoviesDelete(movies) {
     apiMain
       .deleteMovies(movies._id)
       .then(() => {
@@ -121,6 +121,7 @@ function App() {
   };
 
   const handleNewUserData = (name, email) => {
+    toggleForm();
     return apiMain
       .setInitialUsers(name, email)
       .then((newDataUser) => {
@@ -140,10 +141,12 @@ function App() {
           });
         }
         setTimeout(() => setServerResWithError({}), 3500);
-      });
+      })
+      .finally(() => toggleForm());
   };
 
   const handleLogin = (email, password) => {
+    toggleForm();
     apiMain
       .setAuthorizeUser(email, password)
       .then((data) => {
@@ -169,10 +172,12 @@ function App() {
         }
         setTimeout(() => setServerResWithError({}), 3500);
         setLoggedIn(false);
-      });
+      })
+      .finally(() => toggleForm());
   };
 
   function handleRegister(name, email, password) {
+    toggleForm();
     apiMain
       .setRegisterUser(name, email, password)
       .then(() => {
@@ -194,15 +199,29 @@ function App() {
         }
         setTimeout(() => setServerResWithError({}), 3500);
         setLoggedIn(false);
-      });
+      })
+      .finally(() => toggleForm());
   }
 
-  const handleLoggedIn = (boolew) => {
-    apiMain.getLogout().catch((err) => console.log(err));
-    localStorage.clear();
-    setLoggedIn(boolew);
-    setCurrentUser(null);
+  const handleLogOut = () => {
+    toggleForm();
+    apiMain
+      .getLogout()
+      .then(() => {
+        localStorage.clear();
+        setLoggedIn(false);
+        setCurrentUser(null);
+        navigate("/");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => toggleForm()); 
   };
+
+  const toggleForm = () => {
+    const form = document.getElementById('form')
+    form.classList.toggle('disabled');
+  }
+  
 
   if (!isInited) {		
     return null;		
@@ -224,7 +243,7 @@ function App() {
                   <PageSaveMovies
                     dataUserMovies={dataUserMovies}
                     preloader={preloader}
-                    hendlerMoviesDelete={hendlerMoviesDelete}
+                    handleMoviesDelete={handleMoviesDelete}
                   />
                 }
               /> 
@@ -232,7 +251,7 @@ function App() {
                 path="/movies"
                 element={
                   <PageMovies
-                    hendlerMoviesLike={hendlerMoviesLike}
+                    hаndleMoviesLike={hаndleMoviesLike}
                     dataUserMovies={dataUserMovies}
                     preloader={preloader}
                     handleShowPreloader={handleShowPreloader}
@@ -247,7 +266,7 @@ function App() {
                     greeting="Привет"
                     btnEditText="Редактировать"
                     btnExitText="Выйти из аккаунта"
-                    onLoggedIn={handleLoggedIn}
+                    handleLogOut={handleLogOut}
                     handleNewUserData={handleNewUserData}
                     serverResWithError={serverResWithError}
                   />

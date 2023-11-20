@@ -8,7 +8,7 @@ function FilterCheckbox(props) {
     const checkboxStatus = (evt) => {
         return props.checkboxStatus(!evt.target.checked);
     };
-
+    
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 768;
 

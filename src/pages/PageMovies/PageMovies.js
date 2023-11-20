@@ -8,8 +8,12 @@ function PageMovies(props) {
     const [filterString, setFilterString] = useState(
         localStorage.getItem("filterString") ?? ""
     );
+
+    const [showShortOnly, setShowShortOnly] = useState(
+        localStorage.getItem("showShortOnly") ?? false
+    );
+
     const [searchValue, setSearchValue] = useState(filterString);
-    const [showShortOnly, setShowShortOnly] = useState(false);
     const [moreButton, setMoreButton] = useState(false);
     const [showMovies, setShowMovies] = useState([]);
     const [paginator, setPaginator] = useState();
@@ -18,7 +22,7 @@ function PageMovies(props) {
     const [showBlockErr, setShowBlockErr] = useState(false);
     const [getErrorMovies, setGetErrorMovies] = useState(false);
     const [dataMovies, setDataMovies] = useState([]);
-
+        
     const handleResize = useCallback(() => {
         setScreenWidth(window.innerWidth);
     }, []);
@@ -48,7 +52,6 @@ function PageMovies(props) {
                         movie.nameEN.toLowerCase().includes(filterString)
                     );
                 });
-
                 setDataMovies(arrayMovies);
 
                 if (arrayMovies.length <= 0) {
@@ -72,7 +75,12 @@ function PageMovies(props) {
     }, [filterString]);
 
     useEffect(() => {
-        const shortOnly = localStorage.setItem("showShortOnly", showShortOnly);
+        localStorage.setItem("dataMovies", JSON.stringify(dataMovies));
+    }, [dataMovies]);
+
+    useEffect(() => {
+        localStorage.setItem("showShortOnly", showShortOnly);
+        const shortOnly = localStorage.getItem("showShortOnly");
 
         if (shortOnly) {
             setShowShortOnly(JSON.parse(shortOnly));
@@ -144,7 +152,7 @@ function PageMovies(props) {
                     return (
                         <MoviesCard
                             movie={movie}
-                            hendlerMoviesLike={props.hendlerMoviesLike}
+                            hаndleMoviesLike={props.hаndleMoviesLike}
                             handleAddPlaceSubmit={props.handleAddPlaceSubmit}
                             dataUserMovies={props.dataUserMovies}
                             key={movie.id}

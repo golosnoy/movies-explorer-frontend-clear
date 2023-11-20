@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 const IMG_URL = 'https://api.nomoreparties.co';
 
-function MoviesCard({ movie, card, dataUserMovies, hendlerMoviesDelete, hendlerMoviesLike, ...props }) {
+function MoviesCard({ movie, card, dataUserMovies, handleMoviesDelete, hаndleMoviesLike, ...props }) {
     const location = useLocation();
     const [duration, setDuratiion] = useState('');
     const showCross = ['/saved-movies'].includes(location.pathname);
@@ -24,11 +24,11 @@ function MoviesCard({ movie, card, dataUserMovies, hendlerMoviesDelete, hendlerM
         evt.target.firstChild
             ? evt.target.firstChild.classList.toggle('card__like-heart-active')
             : evt.target.classList.toggle('card__like-heart-active');
-        hendlerMoviesLike(props, !isLiked);
+        hаndleMoviesLike(props, !isLiked);
     }
 
     function handleDeleteClick() {
-        hendlerMoviesDelete(props);
+        handleMoviesDelete(props);
     }
 
     const timeDuration = () => {

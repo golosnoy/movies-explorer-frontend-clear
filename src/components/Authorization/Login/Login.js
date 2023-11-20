@@ -36,6 +36,7 @@ function Login({ serverResWithError, handleLogin, ...props }) {
                 >
 
                     <form
+                        id="form"
                         onSubmit={handleSubmit}
                         className="authorization__form"
                         action="formEntrance"
