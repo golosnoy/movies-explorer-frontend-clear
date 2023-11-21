@@ -17,7 +17,7 @@ function Layout({
 }) {
     const locationPageMovies =
         useLocation().pathname.toLocaleLowerCase() === "/movies" || "/saved-movies";
-
+        
     const showeMovies = () => {
         showMoreMovies();
     };

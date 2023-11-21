@@ -15,7 +15,7 @@ class MoviesApi {
     }
 
     getMoviesList() {
-        if (this.cachedMovies) {
+            if (this.cachedMovies) {
             return Promise.resolve(this.cachedMovies);
         }
         return fetch(this.baseUrl, {
