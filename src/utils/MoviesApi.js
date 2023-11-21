@@ -15,9 +15,6 @@ class MoviesApi {
     }
 
     getMoviesList() {
-        if (this.localDataMovies.length > 0) {
-            return Promise.resolve(this.cachedMovies);
-        }
         if (this.cachedMovies) {
             return Promise.resolve(this.cachedMovies);
         }
