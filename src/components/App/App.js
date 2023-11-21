@@ -139,7 +139,7 @@ function App() {
   };
 
   const handleNewUserData = (name, email) => {
-    toggleForm();
+    disableForm();
     return apiMain
       .setInitialUsers(name, email)
       .then((newDataUser) => {
@@ -160,11 +160,11 @@ function App() {
         }
         setTimeout(() => setServerResWithError({}), 3500);
       })
-      .finally(() => toggleForm());
+      .finally(() => enableForm());
   };
 
   const handleLogin = (email, password) => {
-    toggleForm();
+    disableForm();
     apiMain
       .setAuthorizeUser(email, password)
       .then((data) => {
@@ -191,11 +191,11 @@ function App() {
         setTimeout(() => setServerResWithError({}), 3500);
         setLoggedIn(false);
       })
-      .finally(() => toggleForm());
+      .finally(() => enableForm());
   };
 
   function handleRegister(name, email, password) {
-    toggleForm();
+    disableForm();
     apiMain
       .setRegisterUser(name, email, password)
       .then(() => {
@@ -218,11 +218,11 @@ function App() {
         setTimeout(() => setServerResWithError({}), 3500);
         setLoggedIn(false);
       })
-      .finally(() => toggleForm());
+      .finally(() => enableForm());
   }
 
   const handleLogOut = () => {
-    toggleForm();
+    disableForm();
     apiMain
       .getLogout()
       .then(() => {
@@ -232,13 +232,20 @@ function App() {
         navigate("/");
       })
       .catch((err) => console.log(err))
-      .finally(() => toggleForm()); 
+      .finally(() => enableForm()); 
   };
 
-  const toggleForm = () => {
-    const form = document.getElementById('form')
-    form.classList.toggle('disabled');
-  }
+  const disableForm = () => {
+    const inputs = document.getElementsByTagName('input');
+    for (let i = 0; i < inputs.length; i++) {
+    inputs[i].setAttribute('disabled', '');
+  }};
+
+  const enableForm = () => {
+    const inputs = document.getElementsByTagName('input');
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].removeAttribute('disabled', '');
+  }};
 
   if (!isInited) {		
     return null;		
