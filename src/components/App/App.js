@@ -14,6 +14,14 @@ import Profile from "../Authorization/Profile/Profile";
 import Footer from "../Footer/Footer";
 import apiMain from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {
+  DUPLICATE_ERROR_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+  LOGIN_ERROR_MESSAGE,
+  AUTHORIZATION_ERROR_MESSAGE,
+  REGISTRATION_ERROR_MESSAGE,
+  UNATHORIZED_ERROR_MESSAGE
+} from "../../utils/constants";
 
 function App() {
   const location = useLocation();
@@ -27,13 +35,23 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInited, setIsInited] = useState(false);
 
-  const [valueHideHeaderAndFooter, setValueHideHeaderAndFooter] =
-    useState(false);
+  const [valueHideHeaderAndFooter, setValueHideHeaderAndFooter] = useState(false);
   const [preloader, setPreloader] = useState(false);
   const [serverResWithError, setServerResWithError] = useState({});
 
   const [dataUserMovies, setDataUserMovies] = useState([]);
   const [cards, setCards] = useState([]);
+
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 768;
+
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+        window.removeEventListener('resize', handleResizeWindow);
+    };
+}, []);
 
   useEffect(() => {
     apiMain
@@ -44,8 +62,8 @@ function App() {
           setLoggedIn(true);
         }
       })
-      .finally(() => setIsInited(true))
-      .catch((err) => console.log(`Вы не авторизованы, ${err}`));
+      .catch((err) => console.log(`${UNATHORIZED_ERROR_MESSAGE} , ${err}`))
+      .finally(() => setIsInited(true));
   }, []);
 
   useEffect(() => {
@@ -133,11 +151,11 @@ function App() {
       .catch((err) => {
         if (err === 409) {
           setServerResWithError({
-            message: "Пользователь с таким email уже существует.",
+            message: DUPLICATE_ERROR_MESSAGE,
           });
         } else {
           setServerResWithError({
-            message: "На сервере произошла ошибка.",
+            message: SERVER_ERROR_MESSAGE,
           });
         }
         setTimeout(() => setServerResWithError({}), 3500);
@@ -159,15 +177,15 @@ function App() {
       .catch((err) => {
         if (err === 400) {
           setServerResWithError({
-            message: "Ошибка авторизации.",
+            message: AUTHORIZATION_ERROR_MESSAGE,
           });
         } else if (err === 401) {
           setServerResWithError({
-            message: "Неправильный логин или пароль.",
+            message: LOGIN_ERROR_MESSAGE,
           })
         } else {
           setServerResWithError({
-            message: "На сервере произошла ошибка.",
+            message: SERVER_ERROR_MESSAGE,
           });
         }
         setTimeout(() => setServerResWithError({}), 3500);
@@ -186,15 +204,15 @@ function App() {
       .catch((err) => {
         if (err === 400) {
           setServerResWithError({
-            message: "При регистрации пользователя произошла ошибка.",
+            message: REGISTRATION_ERROR_MESSAGE,
           })
         } else if (err === 409) {
           setServerResWithError({
-            message: "Пользователь с таким email уже существует.",
+            message: DUPLICATE_ERROR_MESSAGE,
           });
         } else {
           setServerResWithError({
-            message: "На сервере произошла ошибка.",
+            message: SERVER_ERROR_MESSAGE,
           });
         }
         setTimeout(() => setServerResWithError({}), 3500);
@@ -221,7 +239,6 @@ function App() {
     const form = document.getElementById('form')
     form.classList.toggle('disabled');
   }
-  
 
   if (!isInited) {		
     return null;		
@@ -232,7 +249,7 @@ function App() {
         {hideHeader || valueHideHeaderAndFooter ? (
           <></>
         ) : (
-          <Header loggedIn={loggedIn} />
+          <Header loggedIn={loggedIn} width={width} breakpoint={breakpoint}/>
         )}
         <main className="main-content">
           <Routes>
@@ -256,6 +273,8 @@ function App() {
                     preloader={preloader}
                     handleShowPreloader={handleShowPreloader}
                     handleAddPlaceSubmit={handleAddPlaceSubmit}
+                    width={width}
+                    breakpoint={breakpoint}
                   />
                 }
               />

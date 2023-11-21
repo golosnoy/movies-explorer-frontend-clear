@@ -1,10 +1,10 @@
 import { React, useState, useEffect, useCallback } from "react";
 import Layout from "../../components/Layout/Layout";
 import MoviesCard from "../../components/Movies/MoviesCard/MoviesCard";
-import { firstMovies, nextStep } from "../../utils/constants";
+import { FIRST_MOVIES, NEXT_STEP } from "../../utils/constants";
 import apiOther from "../../utils/MoviesApi";
 
-function PageMovies(props) {
+function PageMovies({ width, breakpoint, ...props }) {
     const [filterString, setFilterString] = useState(
         localStorage.getItem("filterString") ?? ""
     );
@@ -17,23 +17,10 @@ function PageMovies(props) {
     const [moreButton, setMoreButton] = useState(false);
     const [showMovies, setShowMovies] = useState([]);
     const [paginator, setPaginator] = useState();
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [showBlockCards, setShowBlockCards] = useState(false);
     const [showBlockErr, setShowBlockErr] = useState(false);
     const [getErrorMovies, setGetErrorMovies] = useState(false);
     const [dataMovies, setDataMovies] = useState([]);
-        
-    const handleResize = useCallback(() => {
-        setScreenWidth(window.innerWidth);
-    }, []);
-
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
 
     const getMoviesList = () => {
         props.handleShowPreloader(true);
@@ -89,7 +76,7 @@ function PageMovies(props) {
 
     useEffect(() => {
         showFirstMovies();
-    }, [dataMovies, screenWidth]);
+    }, [dataMovies, width]);
 
     useEffect(() => {
         setMoreButton(paginator < dataMovies.length);
@@ -101,13 +88,13 @@ function PageMovies(props) {
 
     const showFirstMovies = () => {
         const firstMoviesCount =
-            screenWidth > 1279
-                ? firstMovies.large
-                : screenWidth > 954
-                    ? firstMovies.medium
-                    : screenWidth > 768
-                        ? firstMovies.small
-                        : firstMovies.smallest;
+            width > 1279
+                ? FIRST_MOVIES.large
+                : width > 954
+                    ? FIRST_MOVIES.medium
+                    : width > 768
+                        ? FIRST_MOVIES.small
+                        : FIRST_MOVIES.smallest;
 
         setPaginator(firstMoviesCount);
         setShowMovies(dataMovies.slice(0, firstMoviesCount));
@@ -119,13 +106,13 @@ function PageMovies(props) {
 
     const showMoreMovies = () => {
         const additionalMoviesCount =
-            screenWidth > 1279
-                ? nextStep.large
-                : screenWidth > 954
-                    ? nextStep.medium
-                    : screenWidth > 768
-                        ? nextStep.small
-                        : nextStep.smallest;
+            width > 1279
+                ? NEXT_STEP.large
+                : width > 954
+                    ? NEXT_STEP.medium
+                    : width > 768
+                        ? NEXT_STEP.small
+                        : NEXT_STEP.smallest;
 
         const nextPaginator = paginator + additionalMoviesCount;
         setShowMovies(dataMovies.slice(0, nextPaginator));
@@ -147,6 +134,8 @@ function PageMovies(props) {
                 moreButton={moreButton}
                 showShortOnly={showShortOnly}
                 setShowShortOnly={setShowShortOnly}
+                width={width}
+                breakpoint={breakpoint}
             >
                 {showMovies.map((movie) => {
                     return (

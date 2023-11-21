@@ -4,8 +4,8 @@ import { React, useContext } from 'react'
 import { Navigate } from 'react-router-dom';
 import './Register.css';
 import WithForm from '../../WithForm/WithForm';
-import { useFormWithValidation } from '../../Validate/Validate';
-import { pattern } from '../../../utils/constants';
+import { useFormWithValidation } from '../../../utils/validate';
+import { PATTERN } from '../../../utils/constants';
 
 function Register({ serverResWithError, handleRegister, ...props }) {
     const currentUser = useContext(userContex);
@@ -54,7 +54,7 @@ function Register({ serverResWithError, handleRegister, ...props }) {
                             >{errors.name}</span>
 
                             <label className='register__label'>E-mail</label>
-                            <input className='register__input register__input_user_email' value={values.email || ''} onChange={handleChange} pattern={pattern} type='email' id='new-user-email' name='email' required />
+                            <input className='register__input register__input_user_email' value={values.email || ''} onChange={handleChange} pattern={PATTERN} type='email' id='new-user-email' name='email' required />
                             <span className={`register__span ${!errors ? "" : "register__span_type_input_error"}`}
                             >{errors.email}</span>
 

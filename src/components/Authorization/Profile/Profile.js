@@ -2,8 +2,8 @@ import { userContex } from '../../../contexts/CurrentUserContext';
 
 import './Profile.css';
 import { React, useContext, useMemo, useState } from 'react';
-import { useFormWithValidation } from '../../Validate/Validate';
-import { pattern } from '../../../utils/constants';
+import { useFormWithValidation } from '../../../utils/validate';
+import { PATTERN } from '../../../utils/constants';
 
 function Profile({ serverResWithError, handleNewUserData, handleLogOut, ...props }) {
     const currentUser = useContext(userContex);
@@ -59,7 +59,7 @@ function Profile({ serverResWithError, handleNewUserData, handleLogOut, ...props
                             </div>
                             <div className='profile__form-input_container'>
                                 <label className='profile__form-label'>E-mail</label>
-                                <input className='profile__form-input profile__form_user_email' name='email' id='input-email' type='email' placeholder='Ваша почта' value={values.email || ''} onChange={handleChange} pattern={pattern} required />
+                                <input className='profile__form-input profile__form_user_email' name='email' id='input-email' type='email' placeholder='Ваша почта' value={values.email || ''} onChange={handleChange} pattern={PATTERN} required />
                             </div>
                             <span className={`profile__span ${!errors ? "" : "profile__span_type_input_error"}`}
                             >{errors.email}</span>

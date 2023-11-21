@@ -1,7 +1,6 @@
 import "./SearchForm.css";
 import { React } from "react";
 import { useLocation } from "react-router-dom";
-import lens from "../../../images/searchform/magnifier.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm({
@@ -9,6 +8,8 @@ function SearchForm({
     setSearchValue,
     showShortOnly,
     setShowShortOnly,
+    width,
+    breakpoint,
     ...props
 }) {
     const location = useLocation().pathname.toLocaleLowerCase();
@@ -81,6 +82,8 @@ function SearchForm({
                     <FilterCheckbox
                             checkBoxStat={showShortOnly}
                             checkboxStatus={setShowShortOnly}
+                            width={width}
+                            breakpoint={breakpoint}
                         />
                     <span className="searchform__error-inputSearch"></span>
                 </form>

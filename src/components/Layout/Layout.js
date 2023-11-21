@@ -11,6 +11,8 @@ function Layout({
     setSearchValue,
     showShortOnly,
     setShowShortOnly,
+    width,
+    breakpoint,
     ...props
 }) {
     const locationPageMovies =
@@ -28,6 +30,8 @@ function Layout({
                 setSearchValue={setSearchValue}
                 showShortOnly={showShortOnly}
                 setShowShortOnly={setShowShortOnly}
+                width={width}
+                breakpoint={breakpoint}
             />
             {props.preloader ? (
                 <Preloader />

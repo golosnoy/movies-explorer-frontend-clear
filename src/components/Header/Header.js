@@ -5,26 +5,13 @@ import logo from '../../images/logo/logo.svg'
 import avatar from '../../images/profile/profile-icon.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn, ...props }) {
-
-    const [width, setWidth] = useState(window.innerWidth);
-    
-    const breakpoint = 768;
+function Header({ loggedIn, width, breakpoint }) {
 
     const [isOpenBurger, setIsOpenBurger] = useState(false);
     const currentLocation = useLocation().pathname === '/';
     const [isOpenMainPage, setIsOpenMainPage] = useState(true);
 
     useEffect(() => {
-        const handleResizeWindow = () => setWidth(window.innerWidth);
-        window.addEventListener('resize', handleResizeWindow);
-        return () => {
-            window.removeEventListener('resize', handleResizeWindow);
-        };
-    }, []);
-
-    useEffect(() => {
-
         setIsOpenMainPage(currentLocation);
     }, [currentLocation]);
 
