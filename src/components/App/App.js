@@ -237,15 +237,25 @@ function App() {
 
   const disableForm = () => {
     const inputs = document.getElementsByTagName('input');
+    const buttons = document.getElementsByTagName('button');
     for (let i = 0; i < inputs.length; i++) {
-    inputs[i].setAttribute('disabled', '');
-  }};
+      inputs[i].setAttribute('disabled', '');
+    };
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('disabled', '');
+      };
+  };
 
   const enableForm = () => {
     const inputs = document.getElementsByTagName('input');
+    const buttons = document.getElementsByTagName('button');
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].removeAttribute('disabled', '');
-  }};
+    };
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].removeAttribute('disabled', '');
+    };
+};
 
   if (!isInited) {		
     return null;		

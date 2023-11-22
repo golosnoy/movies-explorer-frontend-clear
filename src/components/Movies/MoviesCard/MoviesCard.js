@@ -12,18 +12,17 @@ function MoviesCard({ movie, card, dataUserMovies, handleMoviesDelete, hаndleMo
         timeDuration();
     }, [])
 
-    const isLiked = useMemo(() => {
+    const isInUserMovies = () => {
         return dataUserMovies?.some((i) => i.movieId === movie.id);
-    }, [dataUserMovies, movie])
+    };
+
+    const isLiked = isInUserMovies();
 
     const moviesLikeButton = (
         `card__like-heart ${isLiked ? 'card__like-heart-active' : ''}`
     );
 
-    function handleLikeClick(evt) {
-        evt.target.firstChild
-            ? evt.target.firstChild.classList.toggle('card__like-heart-active')
-            : evt.target.classList.toggle('card__like-heart-active');
+    function handleLikeClick() {
         hаndleMoviesLike(props, !isLiked);
     }
 

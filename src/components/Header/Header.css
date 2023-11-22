@@ -71,6 +71,11 @@
   line-height: 18px;
 }
 
+.header__link-text {
+  margin-left: 7px;
+  margin-right: 11px;
+}
+
 .header__link_color_black {
   color: rgb(0, 0, 0);
 }
@@ -88,7 +93,6 @@
 
 .header__link-profile {
   margin-right: 7px;
-  margin-left: 11px;
 }
 
 .header__link-btn {

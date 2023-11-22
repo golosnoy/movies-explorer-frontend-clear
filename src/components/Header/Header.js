@@ -27,12 +27,14 @@ function Header({ loggedIn, width, breakpoint }) {
             </div>
 
             <nav className='header__menu-profile'>
-                <div className='header__menu-profile header__menu-profile_color_green'>
-                    <NavLink to='profile' className='header__link header__link_color_black header__link-profile'>Аккаунт</NavLink>
-                    <div className='header__profile_container'>
-                        <img className='header__profile_avatar-container' src={avatar} alt='Аватар профиля' />
+                <Link to='profile' className='header__link header__link_color_black header__link-profile' alt="Аккаунт">
+                    <div className='header__menu-profile header__menu-profile_color_green'>
+                        <p className='header__link-text'>Аккаунт</p>
+                        <div className='header__profile_container'>
+                            <img className='header__profile_avatar-container' src={avatar} alt='Аватар профиля' />
+                        </div>
                     </div>
-                </div>
+                </Link>
             </nav>
         </div>
     </header>)
@@ -41,9 +43,7 @@ function Header({ loggedIn, width, breakpoint }) {
     const mainPageNotLoggedHeader = () => {
         return (<header className='header header_color_blue'>
         <div className='header__container'>
-
             <a className='header__logo-link' href='#about-project'><img className='header__logo' src={logo} alt='Логотип' /></a>
-
             <nav className='header__menu'>
                 <NavLink to='signup' className='header__link'>Регистрация</NavLink>
                 <NavLink to='signin' className='header__link header__link-login'>
@@ -82,12 +82,14 @@ function Header({ loggedIn, width, breakpoint }) {
             </div>
 
             <nav className='header__menu-profile'>
-                <div className='header__menu-profile'>
-                    <NavLink to='profile' className='header__link header__link_color_black header__link-profile'>Аккаунт</NavLink>
-                    <div className='header__profile_container'>
-                        <img className='header__profile_avatar-container' src={avatar} alt='Аватар профиля' />
+                <Link to='profile' className='header__link header__link_color_black header__link-profile' alt="Аккаунт">
+                    <div className='header__menu-profile'>
+                        <p className='header__link-text'>Аккаунт</p>
+                        <div className='header__profile_container'>
+                            <img className='header__profile_avatar-container' src={avatar} alt='Аватар профиля' />
+                        </div>
                     </div>
-                </div>
+                </Link>
             </nav>
 
         </div>
