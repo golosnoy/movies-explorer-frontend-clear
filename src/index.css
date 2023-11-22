@@ -1,0 +1,36 @@
+@import url(./vendor/normalize.css);
+
+@import url(./vendor/fonts/fonts.css);
+
+.body {
+  background-color: rgb(255, 255, 255);
+}
+
+
+
+.main-content {
+  flex: 1;
+}
+.footer {
+  flex-shrink: 0;
+}
+
+.pages {
+  max-width: 1280px;
+  margin: 0 auto;
+  user-select: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* * { outline: 1px solid red; } */
